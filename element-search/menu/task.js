@@ -5,6 +5,7 @@ links.forEach(link => {
   link.addEventListener('click', e => {
     const subMenu = link.closest('.menu__item').querySelector('.menu_sub')
     if (subMenu) {
+
         if(subMenu.classList.contains('menu_active')) {
             subMenu.classList.remove('menu_active');
         } else {
