@@ -25,7 +25,7 @@ nextArrow.addEventListener('click', () => changeSlide(currentSlide + 1));
 // Регистрация обработчиков события click на элементах dots
 sliderDots.forEach(dot => {
     dot.onclick = (e) => {
-        let indexDot = Array.prototype.slice.call(sliderDots).indexOf(e.srcElement); 
+        let indexDot = Array.from(sliderDots).indexOf(e.srcElement); 
         changeSlide(indexDot)
     }
 });
