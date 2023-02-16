@@ -3,7 +3,7 @@ let menus = document.querySelectorAll('.menu');
 
 links.forEach(link => {
   link.addEventListener('click', e => {
-    const subMenu = link.nextElementSibling;
+    const subMenu = link.closest('.menu__item').querySelector('.menu_sub')
     if (subMenu && subMenu.classList.contains('menu_sub')) {
         if(subMenu.classList.contains('menu_active')) {
             subMenu.classList.remove('menu_active');
