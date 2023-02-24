@@ -27,7 +27,6 @@ bookControlers.forEach((bookControler) => {
 
         if (control.className.includes('book__control_font-size')) {
             styles['size'] = elementToBookStyle.size[target.dataset.size]
-            changeStyle(book, styles);
             // смена активного шрифта
             fontSize = control.querySelectorAll('.font-size');
             fontSize.forEach((item) => item.classList.remove('font-size_active'));
@@ -35,21 +34,21 @@ bookControlers.forEach((bookControler) => {
 
         } else if (control.className.includes('book__control_color')) {
             styles['color'] = elementToBookStyle.color[target.dataset.textColor]
-            changeStyle(book, styles);
             // смена активного фона шрифта
-            fontSize = control.querySelectorAll('.color');
-            fontSize.forEach((item) => item.classList.remove('color_active'));
+            colors = control.querySelectorAll('.color');
+            colors.forEach((item) => item.classList.remove('color_active'));
             target.classList.add('color_active');
 
         } else if (control.className.includes('book__control_background')) {
             styles['bg_color'] = elementToBookStyle.bg_color[target.dataset.bgColor]
-
-            changeStyle(book, styles);
             // смена активного цвета фона
-            fontSize = control.querySelectorAll('.color');
-            fontSize.forEach((item) => item.classList.remove('color_active'));
+            colors = control.querySelectorAll('.color');
+            colors.forEach((item) => item.classList.remove('color_active'));
             target.classList.add('color_active');
         }
+        
+        changeStyle(book, styles);
+
     });
 });
 
