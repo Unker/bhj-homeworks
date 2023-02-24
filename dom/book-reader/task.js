@@ -1,6 +1,22 @@
-// кнопки управления
 const bookControlers = document.querySelectorAll('.book__controls');
 let styles = {};
+// соответствие класса элемента управления классу отображения текста
+let elementToBookStyle = {
+    'size': {
+        'big': 'book_fs-big',
+        'small': 'book_fs-small',
+    },
+    'color': {
+        'black': 'book_color-black',
+        'gray': 'book_color-gray',
+        'whitesmoke': 'book_color-whitesmoke',
+    },
+    'bg_color': {
+        'black': 'bg_color_black',
+        'gray': 'bg_color_gray',
+        'white': 'bg_color_white',
+    },
+}
 
 bookControlers.forEach((bookControler) => {
     bookControler.addEventListener('click', (e) => {
@@ -9,24 +25,25 @@ bookControlers.forEach((bookControler) => {
         target = e.target;
         const control = target.parentNode;
 
-        if(control.className.includes('book__control_font-size')) {
-            styles['size'] = target.dataset.size;
+        if (control.className.includes('book__control_font-size')) {
+            styles['size'] = elementToBookStyle.size[target.dataset.size]
             changeStyle(book, styles);
             // смена активного шрифта
             fontSize = control.querySelectorAll('.font-size');
             fontSize.forEach((item) => item.classList.remove('font-size_active'));
             target.classList.add('font-size_active');
 
-        } else if(control.className.includes('book__control_color')) {
-            styles['color'] = target.dataset.textColor;
+        } else if (control.className.includes('book__control_color')) {
+            styles['color'] = elementToBookStyle.color[target.dataset.textColor]
             changeStyle(book, styles);
             // смена активного фона шрифта
             fontSize = control.querySelectorAll('.color');
             fontSize.forEach((item) => item.classList.remove('color_active'));
             target.classList.add('color_active');
 
-        }  else if(control.className.includes('book__control_background')) {
-            styles['bg_color'] = target.dataset.bgColor;
+        } else if (control.className.includes('book__control_background')) {
+            styles['bg_color'] = elementToBookStyle.bg_color[target.dataset.bgColor]
+
             changeStyle(book, styles);
             // смена активного цвета фона
             fontSize = control.querySelectorAll('.color');
@@ -36,48 +53,10 @@ bookControlers.forEach((bookControler) => {
     });
 });
 
+
 function changeStyle(book) {
     book.classList = ['book'];
-    size = styles['size']
-    switch(size) {
-        case 'big':
-            book.classList.add('book_fs-big');
-            break;
-        case 'small':
-            book.classList.add('book_fs-small');
-            break;
-        default:
-            break;
-    }
-
-    color = styles['color']
-    switch(color) {
-        case 'black':
-            book.classList.add('book_color-black');
-            break;
-        case 'gray':
-            book.classList.add('book_color-gray');
-            break;
-        case 'whitesmoke':
-            book.classList.add('book_color-whitesmoke');
-            break;
-        default:
-            break;
-    }
-
-    bgColor = styles['bg_color']
-    switch(bgColor) {
-        case 'black':
-            book.classList.add('bg_color_black');
-            break;
-        case 'gray':
-            book.classList.add('bg_color_gray');
-            break;
-        case 'white':
-            book.classList.add('bg_color_white');
-            break;
-        default:
-            break;
-    }
-
+    book.classList.add(styles['size']);
+    book.classList.add(styles['color']);
+    book.classList.add(styles['bg_color']);
 }
