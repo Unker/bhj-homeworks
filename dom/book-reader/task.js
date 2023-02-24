@@ -22,7 +22,7 @@ bookControlers.forEach((bookControler) => {
     bookControler.addEventListener('click', (e) => {
         e.preventDefault();
         const book = e.currentTarget.parentNode;
-        target = e.target;
+        const target = e.target;
         const control = target.parentNode;
 
         if (control.className.includes('book__control_font-size')) {
@@ -46,7 +46,7 @@ bookControlers.forEach((bookControler) => {
             colors.forEach((item) => item.classList.remove('color_active'));
             target.classList.add('color_active');
         }
-        
+
         changeStyle(book, styles);
 
     });
