@@ -14,18 +14,28 @@ bookControlers.forEach((bookControler) => {
         console.log(control)
 
         if(control.className.includes('book__control_font-size')) {
-            font['size'] = e.target.dataset.size;
+            font['size'] = target.dataset.size;
             changeFont(book, font);
             // смена активного шрифта
             fontSize = control.querySelectorAll('.font-size');
             fontSize.forEach((item) => item.classList.remove('font-size_active'));
-            
+            target.classList.add('font-size_active');
+
         } else if(control.className.includes('book__control_color')) {
-            font['color'] = e.target.dataset.textColor;
+            font['color'] = target.dataset.textColor;
             changeFont(book, font);
+            // смена активного фона шрифта
+            fontSize = control.querySelectorAll('.color');
+            fontSize.forEach((item) => item.classList.remove('color_active'));
+            target.classList.add('color_active');
+
         }  else if(control.className.includes('book__control_background')) {
-            bg['color'] = e.target.dataset.bgColor;
+            bg['color'] = target.dataset.bgColor;
             changeBackgroud(book, bg);
+            // смена активного цвета фона
+            fontSize = control.querySelectorAll('.color');
+            fontSize.forEach((item) => item.classList.remove('color_active'));
+            target.classList.add('color_active');
         }
 
         console.log(book.classList)
