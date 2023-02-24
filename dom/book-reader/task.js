@@ -1,50 +1,44 @@
 // кнопки управления
 const bookControlers = document.querySelectorAll('.book__controls');
-let font = {};
-let bg = {};
+let styles = {};
 
 bookControlers.forEach((bookControler) => {
     bookControler.addEventListener('click', (e) => {
         e.preventDefault();
         const book = e.currentTarget.parentNode;
-        console.log(book)
         target = e.target;
-        // найти book__control
         const control = target.parentNode;
-        console.log(control)
 
         if(control.className.includes('book__control_font-size')) {
-            font['size'] = target.dataset.size;
-            changeFont(book, font);
+            styles['size'] = target.dataset.size;
+            changeStyle(book, styles);
             // смена активного шрифта
             fontSize = control.querySelectorAll('.font-size');
             fontSize.forEach((item) => item.classList.remove('font-size_active'));
             target.classList.add('font-size_active');
 
         } else if(control.className.includes('book__control_color')) {
-            font['color'] = target.dataset.textColor;
-            changeFont(book, font);
+            styles['color'] = target.dataset.textColor;
+            changeStyle(book, styles);
             // смена активного фона шрифта
             fontSize = control.querySelectorAll('.color');
             fontSize.forEach((item) => item.classList.remove('color_active'));
             target.classList.add('color_active');
 
         }  else if(control.className.includes('book__control_background')) {
-            bg['color'] = target.dataset.bgColor;
-            changeBackgroud(book, bg);
+            styles['bg_color'] = target.dataset.bgColor;
+            changeStyle(book, styles);
             // смена активного цвета фона
             fontSize = control.querySelectorAll('.color');
             fontSize.forEach((item) => item.classList.remove('color_active'));
             target.classList.add('color_active');
         }
-
-        console.log(book.classList)
     });
 });
 
-function changeFont(book, font) {
+function changeStyle(book) {
     book.classList = ['book'];
-    size = font['size']
+    size = styles['size']
     switch(size) {
         case 'big':
             book.classList.add('book_fs-big');
@@ -56,7 +50,7 @@ function changeFont(book, font) {
             break;
     }
 
-    color = font['color']
+    color = styles['color']
     switch(color) {
         case 'black':
             book.classList.add('book_color-black');
@@ -70,12 +64,9 @@ function changeFont(book, font) {
         default:
             break;
     }
-}
 
-function changeBackgroud(book, font) {
-    book.classList = ['book'];
-    color = bg['color']
-    switch(color) {
+    bgColor = styles['bg_color']
+    switch(bgColor) {
         case 'black':
             book.classList.add('bg_color_black');
             break;
