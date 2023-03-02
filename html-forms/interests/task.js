@@ -16,17 +16,18 @@ function checkboxDetermination(initiator) {
 
 function indeterminateWalk() {
     [...checkboxes]
-        .forEach(checkbox => {
+        .slice().reverse().forEach(checkbox => {
             let checkboxChildren = checkbox.closest('.interest').querySelectorAll('input[type="checkbox"]');
 
             // remove self node
             checkboxChildren = [].slice.call(checkboxChildren, 1);
 
+            // console.log(checkboxChildren)
             if (checkboxChildren.length == 0) return;
 
             let unCheckedChildren = [...checkboxChildren].filter(child => !child.checked);
-            checkbox.indeterminate = (unCheckedChildren.length > 0 && unCheckedChildren.length < checkboxChildren.length);
 
+            checkbox.indeterminate = (unCheckedChildren.length > 0 && unCheckedChildren.length < checkboxChildren.length);
             checkbox.checked = (unCheckedChildren.length === 0);
         });
 }
