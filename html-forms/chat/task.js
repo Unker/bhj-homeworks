@@ -13,9 +13,10 @@ chatBtn.addEventListener('click', (e) => {
 
 input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && e.repeat === false) {
-        if (input.value) {
+		const msg = input.value.trim();
+        if (msg) {
             // отправим сообщение и очистим поле ввода
-            sendMsg(input.value, true);
+            sendMsg(msg, true);
             input.value = '';
 
             // отправим ответ на принятое сообщение от пользователя
