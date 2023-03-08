@@ -1,11 +1,13 @@
 const hasTooltip = document.querySelectorAll('.has-tooltip');
-//const tooltip = document.querySelector('.tooltip');
+
+let tooltip = document.createElement('div');
+tooltip.classList.add('tooltip');
 
 hasTooltip.forEach((el) => {
 	el.addEventListener('click', (e) => {
 		e.preventDefault();
-		deleteTooltip();
-		let tooltip = createTooltip(e.target);
+		hideTooltip(tooltip);
+		e.target.appendChild(tooltip);
 		showTooltip(e.target, tooltip);
 	});
 });
@@ -13,29 +15,15 @@ hasTooltip.forEach((el) => {
 document.addEventListener('click', (e) => {
 	if(!e.target.classList.contains('has-tooltip')) {
 		const tooltip = document.querySelector('.tooltip');
-		tooltip.classList.remove('tooltip_active');
+		hideTooltip(tooltip);
 	}
 });
 
-function deleteTooltip() {
-	const tooltip = document.querySelector('.tooltip');
+function hideTooltip(tooltip) {
 	if(tooltip) {
-		tooltip.remove();
+		tooltip.classList.remove('tooltip_active');
 	}
-}
-
-//document.addEventListener('scroll', () => setCoordTolltip());
-// добавление элемента в DOM дерево
-function createTooltip (el) {
-	var tooltip = document.createElement('div');
-	tooltip.classList.add('tooltip');
-	el.style.left = '0px';
-	el.style.top = '0px';
-	if (el) {
-		el.insertAdjacentElement('afterEnd', tooltip);
-	}
-	return tooltip
-}
+};
 
 // отобразить подсказку
 function showTooltip(el, tooltip) {	
@@ -46,7 +34,7 @@ function showTooltip(el, tooltip) {
 	tooltip.style.top = coords.bottom + 'px';
 	tooltip.innerHTML = el.title;
 
-}
+};
 
 // получить координаты элемента в контексте документа
 function getCoords(el) {
@@ -58,4 +46,4 @@ function getCoords(el) {
 		bottom: box.bottom + window.pageYOffset,
 		left: box.left + window.pageXOffset,
 	};
-}
+};
