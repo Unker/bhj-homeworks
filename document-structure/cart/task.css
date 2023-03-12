@@ -7,6 +7,12 @@ body {
   align-items: center;
 }
 
+.cart__title {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
 .cart__product {
   position: relative;
 }
@@ -83,6 +89,19 @@ body {
 }
 
 .product__add:hover {
+  opacity: 0.8;
+}
+
+.product__remove {
+  background: red;
+  padding: 10px 20px;
+  margin: 10px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product__remove:hover {
   opacity: 0.8;
 }
 
