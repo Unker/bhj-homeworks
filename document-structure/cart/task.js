@@ -49,7 +49,8 @@ productAdd.forEach((el) => {
 // добавление/изменение продукта в корзине
 function addProductToCart(product) {
 	let productParams = {}
-	productParams.img = product.querySelector('.product__image').src;
+	const productImage = product.querySelector('.product__image');
+	productParams.imgSrc = productImage.src;
 	productParams.id = product.dataset.id;
 	productParams.quantity = product.querySelector('.product__quantity-value').innerText;
 		
@@ -62,7 +63,7 @@ function addProductToCart(product) {
 		
 		const img = document.createElement('img');
 		img.classList.add('cart__product-image');
-		img.src = productParams.img;
+		img.src = productParams.imgSrc;
 		
 		const divCount = document.createElement('div');
 		divCount.classList.add('cart__product-count');
@@ -81,6 +82,9 @@ function addProductToCart(product) {
 		// изменим количество товара в корзине
 		const count = productInCart.querySelector('.cart__product-count');
 		count.innerText = Number(count.innerText) + Number(productParams.quantity);
+		
+		// вызываем анимацию добавления товара в корзину
+		animateAddCart(productImage);
 	}
 	refreshCart();
 }
@@ -92,3 +96,63 @@ document.addEventListener('click', (e) => {
 		refreshCart();
 	}
 });
+
+
+// анимация добавления продукта
+function animateAddCart(productImage) {
+	const id = productImage.closest('.product').dataset.id;	
+	
+	let { left: leftStart, top: topStart } = getCoords(productImage);
+	
+	const productInCart = cartProducts.querySelector(`[data-id="${id}"]`);
+	const cartImage = productInCart.querySelector('.cart__product-image');
+	let { left: leftStop, top: topStop } = getCoords(cartImage);
+	
+	// get copy image
+	const img = productImage.cloneNode(false);
+	img.classList.add('cart__product-image');
+	let leftImg = leftStart 
+	let topImg = topStart;
+	img.style.position = 'absolute';
+	img.style.left = leftImg + 'px';
+	img.style.top = topImg + 'px';
+	document.body.appendChild(img);
+	
+
+	console.log(id)
+	console.log(leftStart, topStart)
+	console.log(leftStop, topStop)
+	console.log(img.style.left, img.style.top)
+	console.log(getCoords(img))
+	
+	const timeToRender = 300;
+	const timeStep = 20;
+	const stepX = (leftStop - leftStart) * (timeStep/timeToRender);
+	const stepY = (topStop - topStart) * (timeStep/timeToRender);
+	intervalRenderImage = setInterval(() => {
+        img.style.left = leftImg + 'px';
+        img.style.top = topImg + 'px';
+		if (Math.abs(leftImg - leftStop) > 5 || Math.abs(topImg - topStop) > 5) {
+            leftImg += stepX;
+			topImg += stepY;
+			console.log(leftImg, topImg)
+        } else {
+			clearInterval(intervalRenderImage);
+			console.log('stop');
+			img.remove();
+		}
+		
+    }, timeStep)
+}
+
+// получить координаты элемента в контексте документа
+function getCoords(el) {
+	let box = el.getBoundingClientRect();
+	
+	return {
+		top: box.top + window.pageYOffset,
+		right: box.right + window.pageXOffset,
+		bottom: box.bottom + window.pageYOffset,
+		left: box.left + window.pageXOffset,
+	};
+};

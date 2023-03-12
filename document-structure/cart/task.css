@@ -19,7 +19,7 @@ body {
 .cart__product-count {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   border: 2px solid green;
   border-radius: 50%;
   padding: 2px 5px;
@@ -31,6 +31,7 @@ body {
   width: 100px;
   height: 100px;
   object-fit: contain;
+  padding-left: 40px;
 }
 .product {
   display: flex;
