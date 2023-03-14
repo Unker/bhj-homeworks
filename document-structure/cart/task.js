@@ -41,8 +41,11 @@ productControl.forEach((el) => {
 // обработка кнопок добавления продукта в корзину
 productAdd.forEach((el) => { 
 	el.addEventListener('click', (e) => {
-		const product = e.target.closest('.product');
-		addProductToCart(product);
+		// если анимация не закончилась, то не добавляем новый продукт
+		if(e.target.classList.contains('product__add-disable') == false) {
+			const product = e.target.closest('.product');
+			addProductToCart(product);
+		}
 	});
 });		
 
@@ -82,9 +85,10 @@ function addProductToCart(product) {
 		// изменим количество товара в корзине
 		const count = productInCart.querySelector('.cart__product-count');
 		count.innerText = Number(count.innerText) + Number(productParams.quantity);
-		
+				
 		// вызываем анимацию добавления товара в корзину
 		animateAddCart(productImage);
+		
 	}
 	refreshCart();
 }
@@ -100,6 +104,11 @@ document.addEventListener('click', (e) => {
 
 // анимация добавления продукта
 function animateAddCart(productImage) {
+	// блокируем все кнопки "добавить"
+	productAdd.forEach((el) => {
+		el.classList.add('product__add-disable');
+	});
+
 	const id = productImage.closest('.product').dataset.id;	
 	
 	let { left: leftStart, top: topStart } = getCoords(productImage);
@@ -111,19 +120,13 @@ function animateAddCart(productImage) {
 	// get copy image
 	const img = productImage.cloneNode(false);
 	img.classList.add('cart__product-image');
+	img.classList.add('animate__product-image');
 	let leftImg = leftStart 
 	let topImg = topStart;
 	img.style.position = 'absolute';
 	img.style.left = leftImg + 'px';
 	img.style.top = topImg + 'px';
 	document.body.appendChild(img);
-	
-
-	console.log(id)
-	console.log(leftStart, topStart)
-	console.log(leftStop, topStop)
-	console.log(img.style.left, img.style.top)
-	console.log(getCoords(img))
 	
 	const timeToRender = 300;
 	const timeStep = 20;
@@ -135,11 +138,15 @@ function animateAddCart(productImage) {
 		if (Math.abs(leftImg - leftStop) > 5 || Math.abs(topImg - topStop) > 5) {
             leftImg += stepX;
 			topImg += stepY;
-			console.log(leftImg, topImg)
         } else {
 			clearInterval(intervalRenderImage);
 			console.log('stop');
 			img.remove();
+			
+			// разблокируем все кнопки "добавить"
+			productAdd.forEach((el) => {
+				el.classList.remove('product__add-disable');
+			});
 		}
 		
     }, timeStep)
