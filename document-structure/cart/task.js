@@ -5,16 +5,10 @@ const cartTitle = document.querySelector('.cart__title');
 const productControl = document.querySelectorAll('.product__quantity-control');
 const productAdd = document.querySelectorAll('.product__add');
 
-// window.addEventListener('Load', () => {
-	// const defaultCartTitleDisplay = cartTitle.style.display;
-	// console.log(defaultCartTitleDisplay)
-	// refreshCart();
-// });
 refreshCart();
 
 
 function refreshCart() {
-	console.log('refresh')
 	const productsInCart = cartProducts.querySelectorAll('.cart__product');
 	// если нет продуктов, то убрать заголовок
 	if(productsInCart.length == 0) {
@@ -140,7 +134,6 @@ function animateAddCart(productImage) {
 			topImg += stepY;
         } else {
 			clearInterval(intervalRenderImage);
-			console.log('stop');
 			img.remove();
 			
 			// разблокируем все кнопки "добавить"
