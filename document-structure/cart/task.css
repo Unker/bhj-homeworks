@@ -89,6 +89,10 @@ body {
   cursor: pointer;
 }
 
+.product__add-disable {
+  background: gray;
+}
+
 .product__add:hover {
   opacity: 0.8;
 }
