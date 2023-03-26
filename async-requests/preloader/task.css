@@ -19,4 +19,7 @@ body {
 }
 .loader_active {
   display: block;
+  position: absolute;
+  top: 155px;
+  left: 359px
 }
