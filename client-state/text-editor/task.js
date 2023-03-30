@@ -1,13 +1,11 @@
 const editor = document.getElementById('editor');
-
-console.log(editor);
+const clear = document.getElementById('clear_btn');
 
 // считаем задачи  из localStorage
 let text = JSON.parse(localStorage.getItem("text"));
 if(!text) text = '';
 // и отобразим
 editor.value = text
-console.log('restored', text)
 
 let contentIsChanged = false;
 
@@ -23,3 +21,7 @@ editor.addEventListener('input', (e) => {
     contentIsChanged = true;
 })
 
+clear.addEventListener('click', (e) => {
+    editor.value = '';
+    contentIsChanged = true;
+});
