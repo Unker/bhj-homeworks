@@ -1,4 +1,5 @@
 const formUpload = document.getElementById('form');
+const btnSend = document.getElementById('send');
 const inputFile = formUpload.querySelector('#file');
 const progress = document.getElementById( 'progress' );
 
@@ -6,13 +7,12 @@ const urlUpload = 'https://students.netoservices.ru/nestjs-backend/upload'
 
 formUpload.addEventListener('submit', (e) => {
     e.preventDefault();
+    btnSend.disabled = true;
 
     const xhr = new XMLHttpRequest();
 
     const file = inputFile.files[0];
     console.log(file)
-    // formUpload.action = urlUpload
-    formUpload.file = file;
 
     xhr.addEventListener('readystatechange', () => {
         console.log('state:', xhr.readyState)
@@ -24,20 +24,24 @@ formUpload.addEventListener('submit', (e) => {
 
             case xhr.DONE:
                 console.log('DONE');
+                btnSend.disabled = false;
                 break;
         }
     })
 
-    xhr.addEventListener('progress', (e) => {
+    xhr.upload.addEventListener('progress', (e) => {
         console.log(`progress: ${e.loaded}/${e.total} `)
         progress.value = e.loaded/e.total
+        // progressBefore.content = ``
+        progress.style.setProperty('--percent-loaded', 
+            `'${(progress.value*100).toFixed(0)} %'`)
     })
 
     xhr.open('POST', urlUpload);
     xhr.setRequestHeader("Content-Type","multipart/form-data");
 
-    const uploadFormDate = new FormData()
-    console.log(formUpload)
-    console.log(uploadFormDate)
-    xhr.send(uploadFormDate);
+    var formData = new FormData();
+    formData.append("file", file);
+
+    xhr.send(formData);
 })
