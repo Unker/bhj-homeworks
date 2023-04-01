@@ -2,10 +2,10 @@ const signin = document.getElementById('signin');
 const signinForm = document.getElementById('signin__form');
 const welcome = document.getElementById('welcome');
 const userId = document.getElementById('user_id');
+const btnLogout = document.getElementById('logout__btn');
 
 const authURL = 'https://students.netoservices.ru/nestjs-backend/auth'
 
-// считаем задачи  из localStorage
 let user = JSON.parse(localStorage.getItem("user_id"));
 if(user) {
     welcomeUser(user);
@@ -16,6 +16,7 @@ function welcomeUser(user) {
     signin.classList.remove('signin_active');
     userId.innerHTML = user;
     welcome.classList.add('welcome_active');
+    btnLogout.classList.remove('btn_hide');
 }
 
 signinForm.addEventListener('submit', (e) => {
@@ -50,4 +51,13 @@ signinForm.addEventListener('submit', (e) => {
     xhr.send(formData);
 
     signinForm.reset();
+});
+
+
+btnLogout.addEventListener('click', e => {
+    btnLogout.classList.add('btn_hide');
+    signin.classList.add('signin_active');
+    userId.innerHTML = '';
+    welcome.classList.remove('welcome_active');
+    localStorage.removeItem("user_id");
 });

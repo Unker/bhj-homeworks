@@ -37,6 +37,10 @@
   box-shadow: none;
 }
 
+.btn_hide {
+  display: none;
+}
+
 .welcome {
   display: none;
 }
