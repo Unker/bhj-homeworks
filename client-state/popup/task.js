@@ -16,8 +16,8 @@ if(!subscribeIsClosed) {
     modalSubs.classList.add("modal_active");
 }
 
-modalsClose.forEach(modal_close => {
-    modal_close.onclick = (element) => {
+modalsClose.forEach(modalClose => {
+    modalClose.onclick = (element) => {
         modal = element.srcElement.closest('.modal');
         modal.classList.remove("modal_active");
         // запишем закрытие окна в хранилище
