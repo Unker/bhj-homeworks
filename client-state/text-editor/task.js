@@ -5,7 +5,7 @@ const clear = document.getElementById('clear_btn');
 editor.value = localStorage.getItem("text");
 
 
-editor.addEventListener('input', (e) => {
+window.addEventListener('beforeunload', (e) => {
     localStorage.setItem("text", editor.value);
 })
 
